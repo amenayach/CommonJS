@@ -6,7 +6,6 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-
 //Case InSensitive
 function getQueryString(name) {
 	name = name.replace(/[\[]/i, "\\[").replace(/[\]]/i, "\\]");
