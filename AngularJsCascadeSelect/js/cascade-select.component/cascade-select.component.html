@@ -1,0 +1,6 @@
+<select name="{{$ctrl.nwName}}"
+        ng-options="op as op[$ctrl.nwValue?$ctrl.nwValue:'value'] for op in $ctrl.getData() track by op[$ctrl.nwKey?$ctrl.nwKey:'key']"
+        ng-change="$ctrl.nwChange({data: $ctrl.nwModel})"
+        ng-model="$ctrl.nwModel">
+            <option ng-if="$ctrl.nwEmptyOption && $ctrl.nwEmptyOption.length > 0" value="">{{$ctrl.nwEmptyOption}}</option>        
+</select>

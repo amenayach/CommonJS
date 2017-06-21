@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-sanitize.js"></script>
+    <script src="js/lib/angular-animate.min.js"></script>
+    <script src="js/lib/angular-aria.min.js"></script>
+    <script src="js/lib/angular-messages.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/cascade-select.component/cascade-select.component.js"></script>
+</head>
+
+<body ng-app="myapp">
+
+    <div ng-controller="mainCtrl as vm">
+
+        <nw-cascade-select nw-options="vm.categories" 
+                           nw-model="vm.categ"
+                           nw-key="'id'"
+                           nw-value="'title'"
+                           nw-model="vm.categ"
+                           nw-empty-option="'Seclect a category'"></nw-cascade-select>
+
+        <nw-cascade-select nw-options="vm.dropData" 
+                           nw-value="'value'" 
+                           nw-key="'key'"
+                           nw-name="'dropdown1'"                           
+                           nw-model="vm.m1"
+                           nw-parent-model="vm.categ.id"
+                           nw-parent-key="'parentId'"
+                           nw-empty-option="'Please select'"
+                           nw-change="vm.optionSelected(data)"></nw-cascade-select>
+        
+        <nw-cascade-select nw-options="vm.dropData2" 
+                           nw-value="'value'" 
+                           nw-key="'key'"
+                           nw-name="'dropdown2'"                           
+                           nw-model="vm.m2"
+                           nw-parent-model="vm.m1.key"
+                           nw-parent-key="'parentId'"
+                           nw-empty-option="'Please select'"></nw-cascade-select>
+
+        <br>
+        <br>
+        <strong>Selected category</strong>
+        <span ng-bind="vm.categ"></span>
+        <br>
+        <strong>Selected sub category</strong>
+        <span ng-bind="vm.m1"></span>
+        <br>
+        <br>
+        <strong>All sub sub categories</strong>
+        <p ng-repeat="rec in vm.dropData2" ng-bind="rec"></p>
+        <input type="button" ng-click="vm.dropData.length = 0" value="Clear dropdown data">
+        <br>
+        <br>
+
+    </div>
+
+</body>
+
+</html>
