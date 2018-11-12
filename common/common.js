@@ -8,7 +8,31 @@ function rangeMap(itemCount, mapCallback) {
 	return [...Array(itemCount).keys()].map(x => mapCallback(x));
 }
 
-// ex var arr = [{name: 'n1', age: 25}, {name: 'n2', age: 18}]; arr.filterMap(m => m.age > 20, m => m.age) --> [25];
+/**
+ * Benchmark:
+ * var data = [ array with 10 000 000 item ]
+ * 
+ * console.time('filter');
+ * data
+ *      .filter(m => m.age > 20)
+ *      .map(m => {return {name: m.first_name + ' ' + m.last_name};});
+ * console.timeEnd('filter');
+ * 
+ * console.time('filterMap');
+ * data
+ *      .filterMap(m => m.age > 20,
+ *                 m => {return {name: m.first_name + ' ' + m.last_name};}
+ *       );
+ * console.timeEnd('filterMap');
+ * 
+ * Result:
+ * filter: 4102ms
+ * filterMap: 2554ms
+ * 
+ * use example:
+ * var arr = [{name: 'n1', age: 25}, {name: 'n2', age: 18}, {name: 'n3', age: 33}]; 
+ * arr.filterMap(m => m.age > 20, m => m.age) --> [25, 33];
+ */
 if (!Array.prototype.filterMap) {
 	Array.prototype.filterMap = function (predicate, selector) {
 		if (this == null) throw new TypeError('this is null or not defined');
