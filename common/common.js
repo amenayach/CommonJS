@@ -64,3 +64,36 @@ if (!Array.prototype.filterMap) {
 		return res
 	};
 }
+
+/**
+ * var arr = [{id: 1, name: 'bilal'}, {id: 2, name: 'amen'}];
+ * var arr2 = [{id: 2, name: 'amen'}, {id: 4, name: 'bob'}, {id: 1, name: 'bilal'}];
+ * 
+ * arr.union(arr2);
+ * returns
+ * [{id: 1, name: 'bilal'}, {id: 2, name: 'amen'}, {id: 4, name: 'bob'}]
+ */
+if (!Array.prototype.union) {
+    Array.prototype.union = function (arr2, comparer) {
+        if (arr2 == null || arr2.length == 0) {
+            return this;
+        }
+
+        if (comparer == null) {
+            comparer = (val1, val2) => val1 == val2;
+        }
+
+        const allitems = this.concat(arr2);
+
+        const result = [];
+
+        allitems.forEach(item => {
+            var exist = result.find(m => comparer(m, item));
+            if (!exist) {
+                result.push(item);
+            }
+        });
+
+        return result;
+    };
+}
